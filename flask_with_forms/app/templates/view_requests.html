@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ form.filter.label }} &nbsp;
+{{ form.filter }}
+<h4 id="filter_msg">Viewing: All feature requests</h4>
+
+{% for request in requests %}
+<div class="row request {{ request['client'][-1:] }}" name="{{ request['client'] }}">
+    <div class="col-xl-8" style="padding:4px 14px;">
+        <span style="color:#AAA !important;margin:0;padding;0;">Feature Request</span>
+        <div class="row">
+            {% for key in request_fields %}
+            <div class="col-sm-6 sm-list-item">
+                <strong>{{ key }}: </strong>
+            </div>
+            <div class="col-sm-6 sm-list-item">
+                {{ request[key] }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div><!-- row -->
+{% endfor %}
+
+<script src="/static/filter.js"></script>
+
+{% endblock %}

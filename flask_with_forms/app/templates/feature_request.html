@@ -1,0 +1,93 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <h4>Create Feature Request</h4>
+    <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+
+      {% for error in form.title.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.title.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.title }}
+        </div>
+      </div>
+
+      {% for error in form.description.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.description.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.description }}
+        </div>
+      </div>
+
+      {% for error in form.client.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.client.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.client }}
+        </div>
+      </div>
+
+      {% for error in form.priority.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.priority.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.priority }}
+        </div>
+      </div>
+
+      {% for error in form.target_date.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.target_date.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.target_date }}
+        </div>
+      </div>
+
+      {% for error in form.product_area.errors %}
+      <div class="alert alert-danger">* {{ error }}</div>
+      {% endfor %}
+      <div class="row">
+        <div class="col-md-4">
+        {{ form.product_area.label }}
+        </div>
+        <div class="col-md-8">
+        {{ form.product_area }}
+        </div>
+      </div>
+
+      <p>{{ form.submit() }}</p>
+    </form>
+
+    <script>
+    $('#datepicker').datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+    </script>
+{% endblock %}
+
