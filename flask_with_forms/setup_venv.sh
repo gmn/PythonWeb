@@ -33,12 +33,18 @@ else
     EE pip install flask
     EE pip install flask_wtf
     EE pip install flask-sqlalchemy
-    EE python3 ./create_db.py
+    EE pip install gunicorn
+    if [ ! -e ./app.db ]; then
+        EE python3 ./create_db.py
+    else
+        echo '****skipping db generation, app.db already exists'
+    fi
 
     echo
     echo 'Run this to start venv: "source venv/bin/activate"'
     echo
-    echo 'Then from inside venv, run: ./run.sh to start the server'
+    echo 'For development server: ./run.sh to start the server'
+    echo 'For production server: gunicorn -w 1 -b 127.0.0.1:8000 app:app'
     echo
     #EE ./run.sh
     #EE cat run.sh
