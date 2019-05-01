@@ -5,19 +5,28 @@ from app.models import Client, FeatureRequest
 from flask import render_template, flash, redirect, url_for
 from flask import send_from_directory
 
+# serve from top-level domain dir, ie '/'
+SUBDIR = ''
+# serve from sub-domain, ie, '/somedir/'
+SUBDIR = '/flaskapp'
+
 links = [
-    { "uri":"/", "name":"Home" },
-    { "uri":"/feature_request", "name": "Create Feature Request" },
-    { "uri":"/view_requests", "name": "View Feature Requests" }
+    {"uri":"{}/".format(SUBDIR),
+        "name":"Home"},
+    {"uri":"{}/feature_request".format(SUBDIR),
+        "name": "Create Feature Request"},
+    {"uri":"{}/view_requests".format(SUBDIR),
+        "name": "View Feature Requests"}
 ]
 
-@app.route('/')
-@app.route('/control_panel')
+@app.route('{}/'.format(SUBDIR))
+@app.route('{}/control_panel'.format(SUBDIR))
 def control_panel():
     return render_template('control_panel.html', title=
-        'Control Panel - Home', links=links)
+        'Control Panel - Home', links=links,
+        root_url=SUBDIR)
 
-@app.route('/feature_request', methods=['GET', 'POST'])
+@app.route('{}/feature_request'.format(SUBDIR), methods=['GET', 'POST'])
 def feature_request():
     form = FeatureRequestForm()
     if form.validate_on_submit():
@@ -42,9 +51,10 @@ def feature_request():
             format(form.title.data, client))
         return redirect(url_for('feature_request'))
     return render_template('feature_request.html', title=
-        'Feature Request creation form', form=form, links=links)
+        'Feature Request creation form', form=form, links=links,
+        root_url=SUBDIR)
 
-@app.route('/view_requests', methods=['GET', 'POST'])
+@app.route('{}/view_requests'.format(SUBDIR), methods=['GET', 'POST'])
 def view_requests():
     form = ClientFilter()
     requests = FeatureRequest.query.order_by(
@@ -65,9 +75,10 @@ def view_requests():
     fields=('client','priority','title','description','product_area',
         'target_date')
     return render_template('view_requests.html', title='View Requests',
-        form=form, links=links, requests=processed, request_fields=fields)
+        form=form, links=links, requests=processed, request_fields=fields,
+        root_url=SUBDIR)
 
-@app.route('/static/<path:path>')
+@app.route('{}/static/<path:path>'.format(SUBDIR))
 def send_static(path):
-    return send_from_directory('static',path)
+    return send_from_directory('static', path)
 
