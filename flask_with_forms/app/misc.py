@@ -40,3 +40,4 @@ def highest_priority(client_id):
         return o.priority
     else:
         return 0
+

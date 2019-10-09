@@ -5,10 +5,10 @@ from app.models import Client, FeatureRequest
 from flask import render_template, flash, redirect, url_for
 from flask import send_from_directory
 
-# serve from top-level domain dir, ie '/'
-SUBDIR = ''
 # serve from sub-domain, ie, '/somedir/'
 SUBDIR = '/flaskapp'
+# serve from top-level domain dir, ie '/'
+SUBDIR = ''
 
 links = [
     {"uri":"{}/".format(SUBDIR),
